@@ -120,7 +120,7 @@ export const COUPONS_TABLE_COLUMNS = ({
         },
       },
     ],
-    [loading, editCouponLoading, menuItems]
+    [loading, editCouponLoading.bool, menuItems]
   );
   return coupon_columns;
 };

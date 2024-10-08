@@ -9,7 +9,7 @@
 
 @layer tailwind-utilities {
   @tailwind components;
-  @tailwind utilities;
+  @tailwind utilities; 
 }
 
 :root {
