@@ -34,9 +34,9 @@ const RESTAURANT_GUARD = <T extends object>(
       }
 
       // For VENDOR
-      if (user?.userType === 'VENDOR') {
-        router.replace('/forbidden');
-      }
+      // if (user?.userType === 'VENDOR') {
+      //   router.replace('/forbidden');
+      // }
     }, []);
 
     // ADMIN/RESTAURANT is always allowed

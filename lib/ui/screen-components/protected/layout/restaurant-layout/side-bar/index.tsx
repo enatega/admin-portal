@@ -22,6 +22,7 @@ import {
 
 // Components
 import SidebarItem from './side-bar-item';
+import { useUserContext } from '@/lib/hooks/useUser';
 
 function AdminSidebar({ children }: IGlobalComponentProps) {
   // Context
@@ -68,6 +69,7 @@ function AdminSidebar({ children }: IGlobalComponentProps) {
 export default function MakeSidebar() {
   const { isRestaurantSidebarVisible } =
     useContext<LayoutContextProps>(LayoutContext);
+  const { user } = useUserContext();
 
   const navBarItems: ISidebarMenuItem[] = [
     {
@@ -147,12 +149,15 @@ export default function MakeSidebar() {
     },
 
     {
-      text: 'Back to Admin',
-      route: '/home', // If super admin redirect to /home, if vendor redirecot to /admin/vendor/restaurants
+      text: user?.userType === 'ADMIN' ? 'Back to Admin' : 'Back to Vendor',
+      route: user?.userType === 'ADMIN' ? '/home' : '/admin/vendor/dashboard', // If super admin redirect to /home, if vendor redirecot to /admin/vendor/restaurants
       isParent: true,
       icon: faArrowLeft,
       isClickable: true,
       isLastItem: true,
+      shouldShow: () => {
+        return !(user?.userType === 'RESTAURANT');
+      },
     },
   ];
 
@@ -160,13 +165,15 @@ export default function MakeSidebar() {
     <>
       <AdminSidebar>
         <div className="h-[92vh] overflow-y-auto overflow-x-hidden pr-2">
-          {navBarItems.map((item, index) => (
-            <SidebarItem
-              key={index}
-              expanded={isRestaurantSidebarVisible}
-              {...item}
-            />
-          ))}
+          {navBarItems.map((item, index) =>
+            item.shouldShow && !item.shouldShow() ? null : (
+              <SidebarItem
+                key={index}
+                expanded={isRestaurantSidebarVisible}
+                {...item}
+              />
+            )
+          )}
         </div>
       </AdminSidebar>
     </>

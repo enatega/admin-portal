@@ -81,7 +81,7 @@ export default function LoginEmailPasswordMain() {
       onUseLocalStorage('save', SELECTED_RESTAURANT, ownerLogin.userTypeId);
     }
 
-    router.push(redirect_url);
+    router.replace(redirect_url);
 
     showToast({
       type: 'success',

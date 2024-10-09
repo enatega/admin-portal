@@ -15,7 +15,7 @@ import CustomButton from '@/lib/ui/useable-components/button';
 import CustomNumberTextField from '@/lib/ui/useable-components/custom-input';
 
 // Formik
-import { Form, Formik, FormikHelpers } from 'formik';
+import { ErrorMessage, Form, Formik, FormikHelpers } from 'formik';
 
 //Toast
 import useToast from '@/lib/hooks/useToast';
@@ -98,45 +98,60 @@ const TippingAddForm = () => {
       >
         {({ values, errors, touched, setFieldValue }) => (
           <Form className="grid grid-cols-2 items-center gap-3 sm:grid-cols-4">
-            <CustomNumberTextField
-              name="tip1"
-              placeholder="Tip 1 e.g 10"
-              min={1}
-              max={100}
-              value={values.tip1}
-              onChange={setFieldValue}
-              isLoading={loading}
-              showLabel={true}
-              style={{
-                borderColor: errors?.tip1 && touched.tip1 ? 'red' : '',
-              }}
-            />
-            <CustomNumberTextField
-              name="tip2"
-              placeholder="Tip 2 e.g 20"
-              min={1}
-              max={100}
-              isLoading={loading}
-              showLabel={true}
-              value={values.tip2}
-              onChange={setFieldValue}
-              style={{
-                borderColor: errors.tip2 && touched.tip2 ? 'red' : '',
-              }}
-            />
-            <CustomNumberTextField
-              name="tip3"
-              min={1}
-              max={100}
-              placeholder="Tip 3 e.g 30"
-              isLoading={loading}
-              showLabel={true}
-              value={values.tip3}
-              onChange={setFieldValue}
-              style={{
-                borderColor: errors.tip3 && touched.tip3 ? 'red' : '',
-              }}
-            />
+            <div className="relative">
+              <CustomNumberTextField
+                name="tip1"
+                placeholder="Tip 1 e.g 10"
+                min={1}
+                max={100}
+                value={values.tip1}
+                onChange={setFieldValue}
+                isLoading={loading}
+                showLabel={true}
+                style={{
+                  borderColor: errors?.tip1 && touched.tip1 ? 'red' : '',
+                }}
+              />
+              <div className="absolute bottom-[-18px] text-xs text-red-500">
+                <ErrorMessage name="tip1" />
+              </div>
+            </div>
+            <div className="relative">
+              <CustomNumberTextField
+                name="tip2"
+                placeholder="Tip 2 e.g 20"
+                min={1}
+                max={100}
+                isLoading={loading}
+                showLabel={true}
+                value={values.tip2}
+                onChange={setFieldValue}
+                style={{
+                  borderColor: errors.tip2 && touched.tip2 ? 'red' : '',
+                }}
+              />
+              <div className="absolute bottom-[-18px] text-xs text-red-500">
+                <ErrorMessage name="tip2" />
+              </div>
+            </div>
+            <div className="relative">
+              <CustomNumberTextField
+                name="tip3"
+                min={1}
+                max={100}
+                placeholder="Tip 3 e.g 30"
+                isLoading={loading}
+                showLabel={true}
+                value={values.tip3}
+                onChange={setFieldValue}
+                style={{
+                  borderColor: errors.tip3 && touched.tip3 ? 'red' : '',
+                }}
+              />
+              <div className="absolute bottom-[-18px] text-xs text-red-500">
+                <ErrorMessage name="tip3" />
+              </div>
+            </div>
             <CustomButton
               className="mb-[2px] mt-auto flex h-11 rounded-md border-gray-300 bg-[black] px-10 text-white"
               label={data?.tips._id ? 'Update' : 'Add'}
